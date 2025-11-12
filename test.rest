@@ -8,3 +8,7 @@ Content-Type: application/json
 {
     "name" : "bot2"
 }
+
+### DELETE END POINT
+
+DELETE http://localhost:8080/api/data
