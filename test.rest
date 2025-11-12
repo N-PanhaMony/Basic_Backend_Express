@@ -1,4 +1,10 @@
-GET http://localhost:8080
-
+### Data endpoint 
 GET http://localhost:8080/api/data
 
+### Add new user
+POST http://localhost:8080/api/data
+Content-Type: application/json
+
+{
+    "name" : "bot2"
+}
