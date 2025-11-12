@@ -1,14 +1,21 @@
-### Data endpoint 
+### READ
 GET http://localhost:8080/api/data
 
-### Add new user
+### CREATE
 POST http://localhost:8080/api/data
 Content-Type: application/json
 
 {
-    "name" : "bot2"
+  "name": "bot3"
 }
 
-### DELETE END POINT
+### UPDATE
+PUT http://localhost:8080/api/data/3
+Content-Type: application/json
 
-DELETE http://localhost:8080/api/data
+{
+  "name": "botX"
+}
+
+### DELETE
+DELETE http://localhost:8080/api/data/3

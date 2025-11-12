@@ -2,7 +2,11 @@ const express = require('express')
 const app = express()
 const PORT = 8080
 
-let data = ['bot1']
+
+let data = [
+  { id: 1, name: 'bot1' },
+  { id: 2, name: 'bot2' },
+];
 
 //middleware
 app.use(express.json())
@@ -21,21 +25,28 @@ app.get('/', (req,res) =>{
 })
 
 // Type 2 - API Endpoint 
-app.get('/api/data', (req, res) =>{
-    res.send(data)
-})
-
 //CRUD-method create-post read-get update-put and delete-delete
-app.post('/api/data', (req,res) => {
-    const newEntry = req.body
-    console.log(newEntry);
-    data.push(newEntry.name)
-    res.sendStatus(201)
+// READ
+app.get('/api/data', (req, res) => res.json(data));
 
-})
-app.delete('/api/data', (req, res) => {
-    data.pop()
-    console.log('We deleted the element off the end of the array')
-    res.sendStatus(203)
-})
+// CREATE
+app.post('/api/data', (req, res) => {
+  const item = { id: data.length + 1, name: req.body.name };
+  data.push(item);
+  res.status(201).json(item);
+});
+
+// UPDATE
+app.put('/api/data/:id', (req, res) => {
+  const item = data.find(d => d.id == req.params.id);
+  if (!item) return res.sendStatus(404);
+  item.name = req.body.name;
+  res.json(item);
+});
+
+// DELETE
+app.delete('/api/data/:id', (req, res) => {
+  data = data.filter(d => d.id != req.params.id);
+  res.sendStatus(200);
+});
 app.listen(PORT , () => console.log(`server listen to port ${PORT}`))
